@@ -6,7 +6,7 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:30:19 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/13 16:55:06 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/13 17:03:35 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,13 +238,21 @@ int		ft_check(t_list1 *list);
 
 /*		printf functions		*/
 
+// checks the input and selects the according function depending on the selector
 void	ft_check_prntf(char s, int *len, va_list *args);
+// puts a character and simultaneously increases the variable len by one
 void	ft_putchar(int c, int *len);
+// puts a string and simultaneously increases len by one for each character
 void	ft_putstr(char *s, int *len);
+// prints a pointer variable to the screen and increases len
 void	ft_putptr(void *ptr, int *len);
+// puts an int to to the screen and increases len
 void	ft_putnbr(int n, int *len);
+// prints an unsigned number to the screen and increases len
 void	ft_putuns(unsigned int n, int *len);
+// prints a hexadecimal to the screen and increases len
 void	ft_puthex(char s, unsigned int nbr, int *len);
+// an implementation of the printf function
 int		ft_printf(const char *s, ...);
 
 #endif
