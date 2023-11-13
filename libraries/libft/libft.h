@@ -6,18 +6,20 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:30:19 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/03 12:15:41 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/13 12:57:51 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+// include libraries
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdarg.h>
 
+// define default BUFFER_SIZE for get_next_line if not defined dur. compilation
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
@@ -30,17 +32,37 @@ typedef struct s_list
 }	t_list;
 
 /*		determine if a char is...		*/
+
+/* determines if a character is a printable (ASCII 32 - 126)
+	Return values:
+	1: printable;		0: not printable*/
 int		ft_isprint(int c);
+/* determines if a character is a digit (ASCII 48 - 57)
+	Return values:
+	1: digit;		0: not a digit*/
 int		ft_isdigit(int c);
+/* determines if a character is an ASCII character (ASCII 0 - 127)
+	Return values:
+	1: ASCII;		0: not ASCII*/
 int		ft_isascii(int c);
+/* determines if a character is part of alphabet (ASCII 65 - 90 and 97 - 122)
+	Return values:
+	1: alphabet character;		0: not an alphabet character*/
 int		ft_isalpha(int c);
+/* determines if a character is alphanumberic (see ft_isalpha and ft_isdigit)
+	Return values:
+	1: alphanumeric;		0: not alphanumeric*/
 int		ft_isalnum(int c);
 
 /*		convert char to upper-/lowercase		*/
+
+// converts a lowercase character to upperc. and returns the character as an int
 int		ft_toupper(int c);
+// converts an upperc. character to lowerc. and returns the character as an int
 int		ft_tolower(int c);
 
 /*		string manipulation		*/
+
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
