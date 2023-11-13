@@ -6,7 +6,7 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:30:19 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/13 16:31:32 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/13 16:55:06 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,27 +151,74 @@ int		ft_atoi(const char *nptr);
 
 /*		memory manipulation 	*/
 
-/* sets the first n bytes of the area starting at s to zero (bytes containing
+/* Sets the first n bytes of the area starting at s to zero (bytes containing
 	aq\0aq). */
 void	ft_bzero(void *s, size_t n);
-
+/* Fills the first n bytes of the memory area pointed to by s with the constant
+	byte c. */
 void	*ft_memset(void *s, int c, size_t n);
+/* Copies n bytes from memory area src to memory area dest. The memory areas may
+	overlap: if src is smaller than destination, copying starts with the last
+	element. Otherwise we start with the first element */
 void	*ft_memmove(void *dest, const void *src, size_t n);
+/* Copies n bytes from memory area src to memory area dest. The memory areas
+	must not overlap.  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+/* Scans the initial n bytes of the memory area pointed to by s for the first
+	instance of c.
+	Return values:
+	returns a pointer to the matching byte;
+	returns NULL if the character does not occur in the given memory area */
 void	*ft_memchr(const void *s, int c, size_t n);
+/* Compares the first n bytes (each interpreted as unsigned char) of the memory
+	areas s1 and s2.
+	Return values:
+	returns an integer less than, equal to, or greater than zero if the first n
+	bytes of s1 is found, respectively, to be less than, to match, or be greater
+	than the first n bytes of s2. */
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+/* Allocates memory for an array of nmemb elements of size bytes each and
+	returns a pointer to the allocated memory. The memory is set to zero. If
+	nmemb or size is 0, then calloc() returns either NULL, or a unique pointer
+	value that can later be successfully passed to free().  */
 void	*ft_calloc(size_t nmemb, size_t size);
 
 /*		list functions 	*/
 
+/* Allocates (with malloc(3)) and returns a new node. The member variable
+	’content’ is initialized with the value of the parameter ’content’. The
+	variable ’next’ is initialized to NULL
+	Return value:
+	returns a pointer to the new node;
+	return NULL if allocations fails. */
 t_list	*ft_lstnew(void *content);
+// Adds the node ’new’ at the beginning of the list.
 void	ft_lstadd_front(t_list **lst, t_list *new);
+/* Counts the number of nodes in a list.
+	Return value:
+	the length of the list. */
 int		ft_lstsize(t_list *lst);
+// Returns the last node of the list.
 t_list	*ft_lstlast(t_list *lst);
+/* Iterates the list ’lst’ and applies the function ’f’ on the content of each
+	node. Creates a new list resulting of the successive applications of the
+	function ’f’. The ’del’ function is used to delete the content of a node if
+	needed.
+	Return values:
+	returns a pointer to the new list;
+	returns NULL if the allocation fails. */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+// Adds the node ’new’ at the end of the list.
 void	ft_lstadd_back(t_list **lst, t_list *new);
+/* Takes as a parameter a node and frees the memory of the node’s content using
+	the function ’del’ given as a parameter and free the node. The memory of
+	’next’ must not be freed. */
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
+/* Deletes and frees the given node and every successor of that node, using the
+	function ’del’ and free(3). Sets the pointer to the list to NULL */
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+/* Iterates the list ’lst’ and applies the function ’f’ on the content of each
+	node. */
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
 /*		get_next_line functions		*/
