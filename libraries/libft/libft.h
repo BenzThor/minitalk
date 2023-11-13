@@ -6,7 +6,7 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:30:19 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/13 12:57:51 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/13 16:31:32 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,34 +63,98 @@ int		ft_tolower(int c);
 
 /*		string manipulation		*/
 
-
+// determines the length of a string s and returns its length
 size_t	ft_strlen(const char *s);
+/* Takes a destination and a src string as input plus size and returns the
+	length of the source string; if size permits it NULL terminates the string*/
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+/* Concatenates two strings, NULL terminates the resulting string and returns
+	the length of the string it tried to create */
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
+/* Allocates (with malloc(3)) and returns a copy of ’s1’ with the characters
+	specified in ’set’ removed from the beginning and the end of the string;
+	Return values:
+	returns a pointer to the trimmed string;
+	returns NULL if the allocation failed */
 char	*ft_strtrim(char const *s1, char const *set);
+/* Allocates (with malloc(3)) and returns a substring from the string ’s’.
+	The substring begins at index ’start’ and is of maximum size ’len’
+	Return values:
+	returns the substring;
+	returns NULL if the allocation failed */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+/* Allocates (with malloc(3)) and returns a new string, which is the result of
+	the concatenation of ’s1’ and ’s2’.
+	Return values:
+	returns the new string;
+	returns NULL if the allocation fails */
 char	*ft_strjoin(char const *s1, char const *s2);
+/* Allocates (with malloc(3)) and returns an array of strings obtained by
+	splitting ’s’ using the character ’c’ as a delimiter. The array must end
+	with a NULL pointer.
+	Return values:
+	returns the array of new strings resulting from the split;
+	returns NULL if the allocation fails */
 char	**ft_split(char const *s, char c);
+/* Applies the function ’f’ to each character of the string ’s’, and passing its
+	index as first argument to create a new string (with malloc(3)) resulting
+	from successive applications of ’f’
+	Return values:
+	returns the string created by successive applications of 'f';
+	returns NULL if the allocation fails */
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+/* Returns a pointer to the first occurrence of the character c in the string s.
+	Otherwise it returns NULL */
 char	*ft_strchr(const char *s, int c);
+/* Returns a pointer to the last occurrence of the character c in the string s.
+	If the character is not found, it returns NULL. */
 char	*ft_strrchr(const char *s, int c);
+/* Finds the first occurrence of the substring small in the string big. The
+	terminating null bytes (aq\0aq) are not compared.
+	Return values:
+	returns a pointer to the beginning of the substring;
+	returns NULL if the substring is not found. */
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+/*  Returns a pointer to a new string which is a duplicate of the string s.
+	Memory for the new string is obtained with malloc(3).
+	Returns NULL if insufficient memory was available. */
 char	*ft_strdup(const char *s);
+/* Compares the two strings s1 and s2. It returns an integer less than, equal
+	to, or greater than zero if s1 is found, respectively, to be less than, to
+	match, or be greater than s2.  */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+/* Applies the function ’f’ on each character of the string passed as argument,
+	passing its index as first argument. Each character is passed by address to
+	’f’ to be modified if necessary. */
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
 /*		put functions		*/
 
+// Outputs the string ’s’ to the given file descriptor followed by a newline.
 void	ft_putendl_fd(char *s, int fd);
+// Outputs the integer ’n’ to the given file descriptor.
 void	ft_putnbr_fd(int n, int fd);
+// Outputs the character ’c’ to the given file descriptor.
 void	ft_putchar_fd(char c, int fd);
+// Outputs the string ’s’ to the given file descriptor.
 void	ft_putstr_fd(char *s, int fd);
+/* Allocates (with malloc(3)) and returns a string representing the integer
+	received as an argument
+	Return values:
+	returns the string representing the integer;
+	returns NULL if the allocation fails */
 char	*ft_itoa(int n);
+/* Converts the initial portion of the string pointed to by nptr to int.
+	Return values:
+	The converted value. */
 int		ft_atoi(const char *nptr);
 
 /*		memory manipulation 	*/
 
+/* sets the first n bytes of the area starting at s to zero (bytes containing
+	aq\0aq). */
 void	ft_bzero(void *s, size_t n);
+
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
