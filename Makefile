@@ -6,12 +6,14 @@
 #    By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 15:17:18 by tbenz             #+#    #+#              #
-#    Updated: 2023/11/12 15:34:23 by tbenz            ###   ########.fr        #
+#    Updated: 2023/11/14 17:47:01 by tbenz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= push_swap
-NAME_BONUS		= checker
+NAME			= server
+NAME1			= client
+NAME_BONUS		= server_bonus
+NAME_BONUS1		= client_bonus
 
 GREEN			= \033[0;32m
 RED				= \033[0;31m
@@ -28,44 +30,32 @@ REMOVE 			= rm -f
 SRCS_DIR		= ./sources/
 BONUS_SRCS_DIR	= ./bonus_sources/
 
-SRCS 			= $(addprefix $(SRCS_DIR),\
-				push_swap.c \
-				determine_cost.c \
-				determine_target.c \
-				ft_check_arguments.c \
-				ft_create_stack.c \
-				ft_prepare_str.c \
-				ft_quit.c \
-				ft_sort.c \
-				push.c \
-				reverse_rotate.c \
-				rotate.c \
-				sort_utils.c \
-				stack_utils.c \
-				swap.c \
-				utils.c)
+SRCSS 			= $(addprefix $(SRCS_DIR),\
+					/server/server.c)
+OBJS			= $(SRCSS:.c=.o)
 
-OBJ				= $(SRCS:.c=.o)
-OBJ_BONUS = $(SRCS_BONUS:.c=.o)
+SRCSC			= $(addprefix $(SRCS_DIR),\
+					client/client.c)
+OBJC			= $(SRCSC:.c=.o)
 
-SRCS_BONUS 		= $(addprefix $(BONUS_SRCS_DIR),\
-				checker.c \
-				ft_check_arguments.c \
-				ft_create_stack.c \
-				ft_operations.c \
-				ft_prepare_str.c \
-				ft_quit.c \
-				push.c \
-				reverse_rotate.c \
-				rotate.c \
-				swap.c \
-				utils.c)
+SRCSS_BONUS 	= $(addprefix $(BONUS_SRCS_DIR),\
+					server/server_bonus.c)
+OBJBS			= $(SRCSS_BONUS:.c=.o)
 
-all:			${LIBFT} ${NAME}
+SRCSC_BONUS 	= $(addprefix $(BONUS_SRCS_DIR),\
+					client/client_bonus.c)
+OBJBC			= $(SRCSC_BONUS:.c=.o)
 
-${NAME}:		${LIBFT} $(OBJ)
-				${CC} ${OBJ} ${LIBFT} ${CFLAGS} -o ${NAME}
+all:			${LIBFT} ${NAME} ${NAME1}
+
+${NAME}:		${LIBFT} $(OBJS)
+				${CC} ${OBJS} ${LIBFT} ${CFLAGS} -o ${NAME}
 				@echo "$(NAME): $(GREEN)$(NAME) was compiled.$(RESET)"
+				@echo
+
+${NAME1}:		${LIBFT} $(OBJC)
+				${CC} ${OBJC} ${LIBFT} ${CFLAGS} -o ${NAME1}
+				@echo "$(NAME1): $(GREEN)$(NAME1) was compiled.$(RESET)"
 				@echo
 
 bonus:			${LIBFT} ${NAME_BONUS}
@@ -84,13 +74,12 @@ ${LIBFT}:
 
 clean:
 				make clean -C libraries/libft
-				${REMOVE} ${OBJ} ${OBJ_BONUS}
+				${REMOVE} ${OBJC} ${OBJS} ${OBJBC} ${OBJBS}
 				@echo
 
-fclean:
-				${REMOVE} ${NAME} ${NAME_BONUS}
+fclean:			clean
+				${REMOVE} ${NAME} ${NAME1} ${NAME_BONUS} ${NAME_BONUS1}
 				make fclean -C libraries/libft
-				${REMOVE} ${OBJ} {OBJ_BONUS}
 				@echo "${NAME}: ${RED}${NAME}, ${NAME_BONUS} and libft.a were deleted${RESET}"
 				@echo
 
