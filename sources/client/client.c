@@ -6,11 +6,19 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:34:29 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/15 19:35:21 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 13:25:13 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minitalk.h"
+
+static int	g_ack = 0;
+
+void	ft_handler(int signum)
+{
+	if (signum == SIGUSR1)
+		g_ack = 1;
+}
 
 void	ft_send_signal(unsigned char bit, int pid)
 {
@@ -26,7 +34,9 @@ void	ft_send_signal(unsigned char bit, int pid)
 		else
 			kill (pid, SIGUSR1);
 		bit = bit >> 1;
-		usleep(400);
+		while (!g_ack)
+			pause();
+		g_ack = 0;
 	}
 }
 
@@ -44,7 +54,9 @@ void	ft_send_len(unsigned int len, int pid)
 		else
 			kill (pid, SIGUSR1);
 		len = len >> 1;
-		usleep(400);
+		while (!g_ack)
+			pause();
+		g_ack = 0;
 	}
 }
 
@@ -86,6 +98,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd(PID_ERR, 2);
 		exit(1);
 	}
+	signal(SIGUSR1, ft_handler);
 	ft_send_len(len, pid);
 	while (str[i])
 	{
