@@ -6,7 +6,7 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:31:01 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/16 14:37:33 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 18:15:50 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ft_handler_s(int signum, siginfo_t *info, void *no);
 void	ft_get_len(int signum, t_server *server);
 // "rebuilds" the str send by the client
 void	ft_interpret_message(int signum, t_server *server);
+// initializes the struct's variables to zero
+void	ft_init(t_server *server, pid_t cpid);
 
 /* functions - client */
 // checks the argv elements for correctness (pid = digits; 3 arguments as inp)

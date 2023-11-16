@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_bonus.c                                     :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:36:25 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/16 14:40:03 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 18:21:40 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minitalk_bonus.h"
+#include "../../inc/minitalk.h"
+
+void	ft_init(t_server *server, pid_t cpid)
+{
+	if (server->str)
+		free (server->str);
+	ft_bzero(server, sizeof(t_server));
+	server->cpid = cpid;
+}
 
 void	ft_interpret_message(int signum, t_server *server)
 {
@@ -60,8 +68,9 @@ void	ft_handler_s(int signum, siginfo_t *info, void *no)
 {
 	static t_server	server;
 
+	if (server.cpid != info->si_pid)
+		ft_init(&server, info->si_pid);
 	no = NULL;
-	server.cpid = info->si_pid;
 	if (server.len == 0)
 		ft_get_len(signum, &server);
 	else
