@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:34:29 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/15 15:55:36 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 14:40:19 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minitalk.h"
+#include "../../inc/minitalk_bonus.h"
 
-void	ft_send_signal(unsigned char bit, int pid)
+static int	g_ack = 0;
+
+void	ft_handler_c(int signum)
+{
+	if (signum == SIGUSR1)
+		g_ack = 1;
+}
+
+void	ft_send_message(unsigned char bit, int pid)
 {
 	int				i;
 	int				n;
 
 	i = 0;
-	if (pid < 1)
-	{
-		ft_putstr_fd(PID_ERR, 2);
-		exit(1);
-	}
 	n = 8;
 	while (n-- > 0)
 	{
@@ -31,7 +34,29 @@ void	ft_send_signal(unsigned char bit, int pid)
 		else
 			kill (pid, SIGUSR1);
 		bit = bit >> 1;
-		usleep(400);
+		while (!g_ack)
+			pause();
+		g_ack = 0;
+	}
+}
+
+void	ft_send_len(unsigned int len, int pid)
+{
+	int				i;
+	int				n;
+
+	i = 0;
+	n = 32;
+	while (n-- > 0)
+	{
+		if (len & 0x01)
+			kill (pid, SIGUSR2);
+		else
+			kill (pid, SIGUSR1);
+		len = len >> 1;
+		while (!g_ack)
+			pause();
+		g_ack = 0;
 	}
 }
 
@@ -58,18 +83,27 @@ void	ft_check_arguments(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	char	*str;
-	int		i;
-	int		len;
+	char				*str;
+	int					i;
+	unsigned int		len;
+	int					pid;
 
 	ft_check_arguments(argc, argv);
 	i = 0;
 	str = argv[2];
-	len = ft_strlen(str);
-	ft_send_len(len);
+	len = (unsigned)ft_strlen(str);
+	pid = ft_atoi(argv[1]);
+	if (pid < 1)
+	{
+		ft_putstr_fd(PID_ERR, 2);
+		exit(1);
+	}
+	signal(SIGUSR1, ft_handler_c);
+	if (len > 0)
+		ft_send_len(len, pid);
 	while (str[i])
 	{
-		ft_send_signal(str[i], ft_atoi(argv[1]));
+		ft_send_message(str[i], pid);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:34:29 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/16 13:25:13 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 14:33:00 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static int	g_ack = 0;
 
-void	ft_handler(int signum)
+void	ft_handler_c(int signum)
 {
 	if (signum == SIGUSR1)
 		g_ack = 1;
 }
 
-void	ft_send_signal(unsigned char bit, int pid)
+void	ft_send_message(unsigned char bit, int pid)
 {
 	int				i;
 	int				n;
@@ -98,11 +98,12 @@ int	main(int argc, char **argv)
 		ft_putstr_fd(PID_ERR, 2);
 		exit(1);
 	}
-	signal(SIGUSR1, ft_handler);
-	ft_send_len(len, pid);
+	signal(SIGUSR1, ft_handler_c);
+	if (len > 0)
+		ft_send_len(len, pid);
 	while (str[i])
 	{
-		ft_send_signal(str[i], pid);
+		ft_send_message(str[i], pid);
 		i++;
 	}
 	return (0);

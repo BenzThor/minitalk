@@ -6,7 +6,7 @@
 #    By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 15:17:18 by tbenz             #+#    #+#              #
-#    Updated: 2023/11/14 17:47:01 by tbenz            ###   ########.fr        #
+#    Updated: 2023/11/16 14:56:05 by tbenz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT 			= ./libraries/libft/libft.a
 
 CC 				= cc
 
-CFLAGS 	= -Wall -Werror -Wextra -g
+CFLAGS 			= -Wall -Werror -Wextra -g
 
 REMOVE 			= rm -f
 
@@ -39,11 +39,11 @@ SRCSC			= $(addprefix $(SRCS_DIR),\
 OBJC			= $(SRCSC:.c=.o)
 
 SRCSS_BONUS 	= $(addprefix $(BONUS_SRCS_DIR),\
-					server/server_bonus.c)
+					server_bonus/server_bonus.c)
 OBJBS			= $(SRCSS_BONUS:.c=.o)
 
 SRCSC_BONUS 	= $(addprefix $(BONUS_SRCS_DIR),\
-					client/client_bonus.c)
+					client_bonus/client_bonus.c)
 OBJBC			= $(SRCSC_BONUS:.c=.o)
 
 all:			${LIBFT} ${NAME} ${NAME1}
@@ -58,11 +58,16 @@ ${NAME1}:		${LIBFT} $(OBJC)
 				@echo "$(NAME1): $(GREEN)$(NAME1) was compiled.$(RESET)"
 				@echo
 
-bonus:			${LIBFT} ${NAME_BONUS}
+bonus:			${LIBFT} ${NAME_BONUS} ${NAME_BONUS1}
 
-${NAME_BONUS}:	${LIBFT} ${OBJ_BONUS}
-				${CC} ${OBJ_BONUS} ${LIBFT} ${CFLAGS} -o ${NAME_BONUS}
-				@echo "\n$(NAME): $(GREEN)$(NAME) was compiled with Bonus.$(RESET)"
+${NAME_BONUS}:	${LIBFT} ${OBJBS}
+				${CC} ${OBJBS} ${LIBFT} ${CFLAGS} -o ${NAME_BONUS}
+				@echo "\n$(NAME_BONUS): $(GREEN)$(NAME_BONUS) was compiled with Bonus.$(RESET)"
+				@echo
+
+${NAME_BONUS1}:	${LIBFT} ${OBJBC}
+				${CC} ${OBJBC} ${LIBFT} ${CFLAGS} -o ${NAME_BONUS1}
+				@echo "\n$(NAME_BONUS1): $(GREEN)$(NAME_BONUS1) was compiled with Bonus.$(RESET)"
 				@echo
 
 ${LIBFT}:
@@ -85,6 +90,6 @@ fclean:			clean
 
 re:				fclean all
 
-rebonus:		fclean ${NAME_BONUS}
+rebonus:		fclean ${NAME_BONUS} ${NAME_BONUS1}
 
-.PHONY:			all clean fclean re rebonus
+.PHONY:			all bonus clean fclean re rebonus

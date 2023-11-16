@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbenz <tbenz@student.42vienna.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:36:25 by tbenz             #+#    #+#             */
-/*   Updated: 2023/11/16 14:50:26 by tbenz            ###   ########.fr       */
+/*   Updated: 2023/11/16 14:40:03 by tbenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minitalk.h"
+#include "../../inc/minitalk_bonus.h"
 
 void	ft_interpret_message(int signum, t_server *server)
 {
