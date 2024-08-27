@@ -18,7 +18,7 @@
 	<span> · </span>
 	<a href="#-usage">🚀 Usage</a>
 	<span> · </span>
-	<a href="#-functionality">⚙️ Functionality</a>
+	<a href="#️-functionality">⚙️ Functionality</a>
 	<span> · </span>
 	<a href="#-testing">🧪 Testing</a>
 </h3>
