@@ -49,7 +49,7 @@ To set up the project, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/benzThor/minitalk.git
+   git clone https://github.com/BenzThor/minitalk.git
    cd minitalk
    ```
 
