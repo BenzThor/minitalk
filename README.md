@@ -1,5 +1,5 @@
 <h1 align="center">
-  📢 mintalk
+  📢 minitalk
 </h1>
 
 <p align="center">
